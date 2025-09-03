@@ -12,19 +12,21 @@ Each microservice is developed and maintained in its own repository.
     Handles user registration, login, authentication (JWT), password
     reset via email, and profile management.
 
--   Doctor Appointment Service
-    Manages appointments, doctor schedules, and booking functionality.
+-   Appointment Service
+    Manages patients and doctor appointments, doctor schedules, and booking functionality.
 
 -   Eureka Server
     Service discovery for microservices (Spring Cloud Netflix Eureka).
-
+-   Gateway service
+    entry point for application.
+    
 ------------------------------------------------------------------------
 
 ## 🏗️ Architecture Overview
 
     flowchart LR
         A[User Service] -->|Registers & Authenticates| B[Eureka Server]
-        C[Doctor Appointment Service] -->|Registers & Discovers| B
+        C[Appointment Service] -->|Registers & Discovers| B
         A -->|Calls| C
         subgraph Database Layer
             D[MySQL]
@@ -43,7 +45,8 @@ Each microservice is developed and maintained in its own repository.
 -   Global Exception Handler with structured error responses.
 -   Unit Testing with JUnit & Mockito.
 -   API Documentation using Spring REST Docs.
--   Service Discovery with Eureka Server.
+-   Service Discovery  & palance loading with Eureka Server.
+-   Single entry point usnig API Gateway
 
 ------------------------------------------------------------------------
 
@@ -81,15 +84,29 @@ Each microservice is developed and maintained in its own repository.
 1.  Clone each repository:
 
         git clone https://github.com/mahmoud-Ramadan2/user-service.git
-        git clone https://github.com/mahmoud-Ramadan2/doctor-appointment-system.git
+        git clone https://github.com/mahmoud-Ramadan2/appointment-service.git
         git clone https://github.com/mahmoud-Ramadan2/eureka-server.git
+        git clone https://github.com/mahmoud-Ramadan2/gateway-service.git
 
-2.  Start Eureka Server first.
 
-3.  Run User Service and Doctor Appointment Service (they will register
+3.  Start Eureka Server first.
+
+4.  Run User Service, Appointment Service and /Gateway-Service (they will register
     with Eureka).
 
-4.  Access services via REST APIs or integrate with a frontend.
+5.  Access services via REST APIs or integrate with a frontend.
+
+------------------------------------------------------------------------
+
+🔹 Services & Routes
+
+All requests go through the API Gateway (http://localhost:8080) and are routed to the appropriate microservice.
+
+| Service                 | Base Path (via Gateway)             | Example Endpoints                                                                                                                                                                                                                                       |
+|-------------------------|-------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **User Service**        | `/users/**`                         | - `POST /users/auth/register` → Register a new user <br> - `POST /users/auth/login` → User login (JWT token) <br> - `POST /users/auth/forgot-password` → Send reset pass link mail <br> - `POST /users/auth/reset-password` → reset new pass            |
+| **Appointment Service** | `/appointments/**`                  | - `POST /appointments` → Book a new appointment <br> - `GET /appointments/doctor/{id}` → List doctor's appointment by ID <br> - `GET /appointments/patient/{id}` → List patient's appointment by ID <br> - `GET /appointments/` → List all appointments |
+| **(Future) Services**   | `/payments/**`, `/notifications/**` | To be implemented                                                                                                                                                                                                                                       |
 
 ------------------------------------------------------------------------
 
