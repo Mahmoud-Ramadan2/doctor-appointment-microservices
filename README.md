@@ -9,19 +9,23 @@ Each microservice is developed and maintained in its own repository.
 
 - **User Service**  
   Handles user registration, login, authentication (JWT), password reset via email, and profile management.
+  GitHub: [user-service](https://github.com/mahmoud-Ramadan2/user-service)
 
 - **Appointment Service**  
   Manages patients and doctor appointments, doctor schedules, and booking functionality.
+    GitHub: [appointment-service](https://github.com/mahmoud-Ramadan2/appointment-service)
 
 - **Notification Service**  
   Listens to Kafka events (e.g., new appointment created) and sends email notifications to users.
+    GitHub: [notification-service](https://github.com/mahmoud-Ramadan2/notification-service)
 
 - **Eureka Server**  
   Provides service discovery for microservices (Spring Cloud Netflix Eureka).
+    GitHub: [eureka-server](https://github.com/mahmoud-Ramadan2/eureka-server)
 
 - **API Gateway**  
   Entry point for routing requests to backend microservices.
-
+    GitHub: [gateway-service](https://github.com/mahmoud-Ramadan2/gateway-service)
     
 ------------------------------------------------------------------------
 
